@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; background:#f7f8fa; margin:0; padding:0; color:#222; }
+header { background:#004a99; color:#fff; padding:12px 18px; }
+header h1 { margin:0; font-size:20px; }
+nav a { color:#fff; margin-right:10px; text-decoration:none; }
+main { padding:20px; }
+.card { background:#fff; padding:15px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,0.06); margin-bottom:12px; }
+input, textarea { width:100%; padding:8px; margin-top:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; }
+button { background:#0078d7; color:#fff; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; }
+button:hover { background:#005fa3; }
+.error { color:#b00020; }
+.success { color:green; }

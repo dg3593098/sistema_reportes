@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: sistema_reportes
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://neondb_owner:npg_ng4Fep7IhWdU@ep-old-credit-acsg8jgz-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    restart: always

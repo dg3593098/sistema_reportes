@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Estadísticas{% endblock %}
+{% block content %}
+<h2>Resumen de Actividad</h2>
+<div class="card">
+  <p><strong>Total de reportes:</strong> {{ total_reportes }}</p>
+  <p><strong>Total de comentarios:</strong> {{ total_comentarios }}</p>
+  <p><strong>Códigos activos registrados:</strong> {{ codigos_usados }}</p>
+</div>
+<h3>Evolución de reportes enviados</h3>
+<canvas id="chartReportes" width="400" height="150"></canvas>
+<h3>Últimos reportes registrados</h3>
+<ul>
+  {% for reporte in ultimos %}
+  <li>
+    <strong>{{ reporte.fecha_envio.strftime('%Y-%m-%d %H:%M') }}</strong> — 
+    {{ reporte.descripcion }}<br>
+    <small><em>Código:</em> {{ reporte.codigo_rel.codigo }}</small>
+  </li>
+  {% else %}
+  <li>No hay reportes recientes.</li>
+  {% endfor %}
+</ul>
+<a href="/admin">← Volver al panel</a>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = JSON.parse('{{ labels | tojson | safe }}');
+  const valores = JSON.parse('{{ valores | tojson | safe }}');
+  const ctx = document.getElementById('chartReportes').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Reportes enviados por día',
+        data: valores,
+        borderColor: '#0078d7',
+        backgroundColor: 'rgba(0, 120, 215, 0.2)',
+        borderWidth: 2,
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true, position: 'bottom' }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1 } }
+      }
+    }
+  });
+</script>
+{% endblock %}

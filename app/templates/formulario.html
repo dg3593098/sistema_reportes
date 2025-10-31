@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Enviar Reporte{% endblock %}
+{% block content %}
+<h2>Enviar Reporte Anónimo</h2>
+
+<form method="POST" action="/enviar_reporte">
+  <label for="codigo">Código de acceso:</label>
+  <input type="text" id="codigo" name="codigo" required>
+
+  <label for="descripcion">Descripción del reporte:</label>
+  <textarea id="descripcion" name="descripcion" required></textarea>
+
+  <button type="submit">Enviar</button>
+</form>
+
+{% if mensaje %}
+<p class="success">{{ mensaje }}</p>
+{% elif error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+{% endblock %}

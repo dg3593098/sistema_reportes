@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Panel de Autoridad{% endblock %}
+{% block content %}
+<h2>Panel de Autoridad Escolar</h2>
+
+{% if reportes %}
+<ul>
+  {% for reporte in reportes %}
+  <li class="card">
+    <strong>Reporte #{{ reporte.id }}</strong> — {{ reporte.fecha_envio.strftime("%Y-%m-%d %H:%M") }}
+    <b>Código:</b> {{ reporte.codigo_rel.codigo }}<br>
+    <p>{{ reporte.descripcion }}</p>
+
+    <h4>Comentarios:</h4>
+    {% if reporte.comentarios %}
+    <ul>
+      {% for comentario in reporte.comentarios %}
+      <li>
+        {{ comentario.contenido }} — {{ comentario.fecha.strftime("%Y-%m-%d %H:%M") }}
+        <form method="POST" action="/eliminar_comentario/{{ comentario.id }}" style="display:inline;">
+          <button type="submit" style="background:#b00020;">Eliminar</button>
+        </form>
+        <form method="POST" action="/modificar_comentario/{{ comentario.id }}" style="display:inline;">
+          <input type="text" name="contenido" placeholder="Editar comentario" required>
+          <button type="submit">Actualizar</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Sin comentarios.</p>
+    {% endif %}
+
+    <form method="POST" action="/comentario/{{ reporte.id }}">
+      <textarea name="contenido" placeholder="Nuevo comentario..." required></textarea>
+      <button type="submit">Agregar</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No hay reportes registrados.</p>
+{% endif %}
+{% endblock %}
