@@ -4,7 +4,7 @@
 <h2>Acceso de Autoridad Escolar</h2>
 
 <form method="POST" action="/login">
-  <input type="hidden" name="csrf_token" value="{{ request.cookies.get('csrf_token') }}">
+  <input type="hidden" name="csrf_token" id="csrf_token">
 
   <label for="documento">Documento:</label>
   <input type="text" id="documento" name="documento" required>

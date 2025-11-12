@@ -18,7 +18,7 @@
       <li>
         {{ comentario.contenido }} — {{ comentario.fecha.strftime("%Y-%m-%d %H:%M") }}
         <form method="POST" action="/eliminar_comentario/{{ comentario.id }}" style="display:inline;">
-          <input type="hidden" name="csrf_token" value="{{ request.cookies.get('csrf_token') }}">
+          <input type="hidden" name="csrf_token" id="csrf_token">
 
           <button type="submit" style="background:#b00020;">Eliminar</button>
         </form>
@@ -36,7 +36,7 @@
     {% endif %}
 
     <form method="POST" action="/comentario/{{ reporte.id }}">
-      <input type="hidden" name="csrf_token" value="{{ request.cookies.get('csrf_token') }}">
+      <input type="hidden" name="csrf_token" id="csrf_token">
 
       <textarea name="contenido" placeholder="Nuevo comentario..." required></textarea>
       <button type="submit">Agregar</button>

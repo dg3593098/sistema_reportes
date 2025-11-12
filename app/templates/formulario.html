@@ -4,7 +4,7 @@
 <h2>Enviar Reporte Anónimo</h2>
 
 <form method="POST" action="/enviar_reporte">
-  <input type="hidden" name="csrf_token" value="{{ request.cookies.get('csrf_token') }}">
+  <input type="hidden" name="csrf_token" id="csrf_token">
 
   <label for="codigo">Código de acceso:</label>
   <input type="text" id="codigo" name="codigo" required>
