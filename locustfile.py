@@ -10,7 +10,7 @@ class SistemaReportesUser(HttpUser):
 
     @task(3)
     def enviar_reporte(self):
-        codigo = random.choice(["ABC123", "TEST01", "COD999"])
+        codigo = random.choice(["ABC123"])
         descripcion = f"Prueba automática de reporte {random.randint(100,999)}"
         self.client.post("/enviar_reporte", data={
             "codigo": codigo,

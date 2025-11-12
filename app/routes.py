@@ -7,7 +7,14 @@ import os
 from .db import get_db
 from .models import Usuario, Codigo, Reporte, Comentario
 import secrets
+from fastapi import Request, HTTPException
 
+def validar_csrf(request: Request):
+    csrf_token_cookie = request.cookies.get("csrf_token")
+    csrf_token_header = request.headers.get("X-CSRF-Token")
+
+    if not csrf_token_cookie or not csrf_token_header or csrf_token_cookie != csrf_token_header:
+        raise HTTPException(status_code=403, detail="CSRF token inválido o ausente.")
 
 def contexto_base(request):
     def validar_csrf(request: Request):
