@@ -27,22 +27,5 @@
   <footer>
     <p>© 2025 Sistema de Reportes Anónimos</p>
   </footer>
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const token = document.cookie.split('; ').find(row => row.startsWith('csrf_token='));
-    if (token) {
-      const csrfToken = token.split('=')[1];
-      document.querySelectorAll('form').forEach(form => {
-        if (!form.querySelector('input[name="csrf_token"]')) {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'csrf_token';
-          input.value = csrfToken;
-          form.appendChild(input);
-        }
-      });
-    }
-  });
-</script>
 </body>
 </html>

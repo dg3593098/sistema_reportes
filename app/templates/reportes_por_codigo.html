@@ -4,7 +4,6 @@
 <h2>Reportes del Código</h2>
 
 <form method="POST" action="/ver_reportes">
-  <input type="hidden" name="csrf_token" value="{{ request.cookies.get('csrf_token') }}">
 
   <label for="codigo">Código de acceso:</label>
   <input type="text" id="codigo" name="codigo" required>
@@ -24,14 +23,12 @@
     <p>{{ reporte.descripcion }}</p>
 
 <form method="POST" action="/modificar_reporte/{{ reporte.id }}">
-  <input type="hidden" name="csrf_token" id="csrf_token">
 
     <textarea name="descripcion" required>{{ reporte.descripcion }}</textarea>
     <button type="submit">Guardar cambios</button>
 </form>
 
     <form method="POST" action="/eliminar_reporte/{{ reporte.id }}">
-      <input type="hidden" name="csrf_token" id="csrf_token">
       
       <button type="submit" style="background:#b00020;">Eliminar</button>
     </form>

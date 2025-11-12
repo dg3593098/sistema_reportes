@@ -42,7 +42,6 @@ async def enviar_reporte(
     db: Session = Depends(get_db),
     
 ):
-    validar_csrf(request)
     codigo_db = db.query(Codigo).filter_by(codigo=codigo, activo=True).first()
     if not codigo_db:
         return templates.TemplateResponse(
@@ -66,7 +65,6 @@ async def ver_reportes(request: Request):
 async def ver_reportes_post(
     request: Request, codigo: str = Form(...), db: Session = Depends(get_db)
 ):
-    validar_csrf(request)
     codigo_db = db.query(Codigo).filter_by(codigo=codigo).first()
     if not codigo_db:
         return templates.TemplateResponse(
@@ -87,7 +85,6 @@ async def modificar_reporte(
     descripcion: str = Form(...),
     db: Session = Depends(get_db),
 ):
-    validar_csrf(request)
     reporte = db.query(Reporte).filter_by(id=reporte_id).first()
     if not reporte:
         raise HTTPException(status_code=404, detail="Reporte no encontrado.")
@@ -118,7 +115,6 @@ async def eliminar_reporte_post(reporte_id: int, db: Session = Depends(get_db)):
     db.delete(reporte)
     db.commit()
     return RedirectResponse(url="/ver_reportes", status_code=303)
-    validar_csrf(request)
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -133,7 +129,6 @@ async def login_post(
     password: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    validar_csrf(request)
     user = db.query(Usuario).filter_by(documento=documento).first()
     if not user or (hasattr(user, "password") and user.password != password):
         return templates.TemplateResponse(
@@ -177,7 +172,6 @@ async def agregar_comentario(
     contenido: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    validar_csrf(request)
     usuario_id = request.cookies.get("usuario_id")
     if not usuario_id:
         return RedirectResponse(url="/login", status_code=303)
@@ -199,7 +193,6 @@ async def editar_comentario(comentario_id: int, contenido: str = Form(...), db: 
     comentario.contenido = contenido
     db.commit()
     return RedirectResponse(url="/admin", status_code=303)
-    validar_csrf(request)
 
 
 @router.get("/eliminar_comentario/{comentario_id}")
@@ -221,7 +214,6 @@ async def eliminar_comentario_post(comentario_id: int, db: Session = Depends(get
         db.delete(c)
         db.commit()
     return RedirectResponse(url="/admin", status_code=303)
-    validar_csrf(request)
 
 @router.get("/test")
 async def test():
