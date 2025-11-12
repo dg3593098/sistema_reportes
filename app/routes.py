@@ -138,9 +138,9 @@ async def login_post(
         key="usuario_id",
         value=str(user.id),
         httponly=True,
-        samesite="lax",     
-        secure=False,       
-        max_age=60 * 60 * 3 
+        samesite="Strict",
+        secure=True,      
+        max_age=60 * 60 * 3
     )
     return response
 
