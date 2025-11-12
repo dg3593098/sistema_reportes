@@ -17,11 +17,6 @@ def validar_csrf(request: Request):
         raise HTTPException(status_code=403, detail="CSRF token inválido o ausente.")
 
 def contexto_base(request):
-    def validar_csrf(request: Request):
-        cookie_token = request.cookies.get("csrf_token")
-    header_token = request.headers.get("X-CSRF-Token")
-    if not cookie_token or not header_token or cookie_token != header_token:
-        raise HTTPException(status_code=403, detail="CSRF token inválido o ausente")
     return {"request": request, "usuario_id": request.cookies.get("usuario_id")}
 
 router = APIRouter()
