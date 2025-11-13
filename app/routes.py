@@ -216,21 +216,33 @@ async def test():
 
 @router.get("/estadisticas", response_class=HTMLResponse)
 async def estadisticas(request: Request, db: Session = Depends(get_db)):
+    from sqlalchemy import func
+    from datetime import datetime, timedelta
+
     usuario_id = request.cookies.get("usuario_id")
     if not usuario_id:
         return RedirectResponse(url="/login", status_code=303)
     total_reportes = db.query(Reporte).count()
     total_comentarios = db.query(Comentario).count()
     codigos_usados = db.query(Codigo).count()
-    from sqlalchemy import func
     datos = (
         db.query(func.date(Reporte.fecha_envio), func.count(Reporte.id))
         .group_by(func.date(Reporte.fecha_envio))
         .order_by(func.date(Reporte.fecha_envio))
         .all()
     )
-    labels = [str(r[0]) for r in datos]
-    valores = [r[1] for r in datos]
+    labels, valores = [], []
+    if datos:
+        fechas_existentes = {str(d[0]): d[1] for d in datos}
+        fecha_min = datetime.fromisoformat(min(fechas_existentes.keys())).date()
+        fecha_max = datetime.fromisoformat(max(fechas_existentes.keys())).date()
+
+        dia_actual = fecha_min
+        while dia_actual <= fecha_max:
+            fecha_str = str(dia_actual)
+            labels.append(fecha_str)
+            valores.append(fechas_existentes.get(fecha_str, 0))
+            dia_actual += timedelta(days=1)
     ultimos = (
         db.query(Reporte)
         .join(Codigo, Reporte.codigo_id == Codigo.id)

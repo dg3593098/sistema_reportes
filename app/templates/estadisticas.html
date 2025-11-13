@@ -8,7 +8,9 @@
   <p><strong>Códigos activos registrados:</strong> {{ codigos_usados }}</p>
 </div>
 <h3>Evolución de reportes enviados</h3>
-<canvas id="chartReportes" width="400" height="150"></canvas>
+<div style="width:90%; max-width:950px; margin:auto;">
+  <canvas id="chartReportes" height="300"></canvas>
+</div>
 <h3>Últimos reportes registrados</h3>
 <ul>
   {% for reporte in ultimos %}
