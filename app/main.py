@@ -16,7 +16,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; "
             "style-src 'self' 'unsafe-inline'; "
-            "script-src 'self'; "
+            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
             "img-src 'self' data:; "
             "object-src 'none'; "
             "frame-ancestors 'none'; "
