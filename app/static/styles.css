@@ -66,3 +66,11 @@ button:hover {
 .success {
   color: green;
 }
+
+canvas {
+  display: block;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+}
